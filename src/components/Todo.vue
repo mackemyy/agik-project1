@@ -28,12 +28,13 @@ import { ref } from 'vue';
         }
         
     }
+
 </script>
 
 <template>
     <div class="">
         <div class="m-8 ">
-            <input type="text" class="w-[100%] pt-[10px] pr-[15px] font-sans block rounded-lg h-10 mb-[0.5rem] text-sm p-3" v-model="todoName" placeholder="Enter Your Task">
+            <input type="text" class="w-[100%] pt-[10px] pr-[15px] font-sans block rounded-lg h-10 mb-[0.5rem] text-sm p-3" v-model="todoName" v-on:keyup.enter="addTodo" placeholder="Enter Your Task">
             <button class="px-6 py-2 bg-white rounded-lg text-sm cursor-pointer hover:bg-blue-900 hover:text-white flex justify-end whitespace-nowrap mr-3 ml-[16.5rem]" @click="addTodo">Add Task</button>
         </div>
         <div class="h-[22rem] overflow-auto">
