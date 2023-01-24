@@ -2,7 +2,7 @@
 import { ref } from 'vue';
     const todoName = ref("");
     const todos = ref([]);
-    const isCompleted = ref(false);
+    const isCompleted = ref(null);
     const addTodo = () => { 
         if(!todoName.value) {
             alert("Please provide a task.")
@@ -31,12 +31,6 @@ import { ref } from 'vue';
         }
     }
 
-    const isDone = (id) => {
-        if(todo.isCompleted.value) {
-            isCompleted.value = !isCompleted;
-        }
-    }
-
 </script>
 
 <template>
@@ -49,10 +43,10 @@ import { ref } from 'vue';
             <p class="font-sans text-white text-xl pl-[30px] mb-4">ALL TASKS</p>
             <div class="todos mx-[3rem]">
                 <ul class=" mb-3 ">
-                    <li v-for="(todo, index) in todos" :key="index" class=" list-none mb-2 text-white flex overflow-auto justify-center">
-                        <div class="flex items-start gap-3 justify-center">
-                            <input type="checkbox" id="green-checkbox" v-on:click="isCompleted.valueOf = true" class="w-4 h-4 text-green-600"/>
-                            <span class="text-[12px] ">{{ todo.todo }}</span>
+                    <li v-for="(todo, index) in todos" :key="index" :class="{ 'is-selected': todo.isCompleted }" class=" list-none mb-2 text-white flex overflow-auto justify-center">
+                        <div class="flex items-start gap-3 justify-center ">
+                            <input type="checkbox" id="todoCheck" v-model="todo.isCompleted" class="w-4 h-4 text-green-600"/>
+                            <label class="text-[12px]" for="todoCheck">{{ todo.todo }}</label>
                         </div>
                         <button @click="()=> deleteTodo(todo.id)" class="px-5 py-[5px] text-white bg-red-600 text-[11px] rounded-lg text-center whitespace-nowrap cursor-pointer hover:bg-slate-900 hover:text-white">Delete Task</button>
                     </li>
@@ -67,9 +61,12 @@ import { ref } from 'vue';
 </template>
 
 <style>
-.todos ul li {
-    
-    display: flex;
-    justify-content: space-between;
-}
+    .todos ul li {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .is-selected label {
+        text-decoration: line-through;
+    }
 </style>
